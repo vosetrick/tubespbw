@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2020 at 08:33 AM
+-- Generation Time: May 13, 2020 at 09:13 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -312,12 +312,15 @@ CREATE TABLE `ujian` (
 --
 
 INSERT INTO `ujian` (`id`, `mengajar_id`, `tipe`, `tata_cara`, `mulai`, `selesai`, `ruang`, `shift`, `kebutuhan_pengawas`, `jumlahPeserta`) VALUES
-(10, 1, 'uts', 'Kelas - Open Book', '2020-05-14 04:04:00', NULL, 'lab', 1, 3, 2),
+(10, 1, 'uts', 'Lainnya', '2020-05-15 02:02:00', '2020-05-15 05:02:00', 'r10323', 1, 3, 3),
 (11, 8, 'uts', 'Kelas - Open Book', '2020-05-14 04:04:00', NULL, 'r10317', 1, 3, 2),
 (12, 1, 'uts', 'Kelas - Open Book', '2020-05-14 04:00:00', '0000-00-00 00:00:00', 'lab', 1, 2, 3),
 (13, 1, 'uts', 'Kelas - Open Book', '2020-05-14 04:00:00', '2020-05-14 04:00:00', 'lab', 1, 2, 22),
 (14, 1, 'uts', 'Kelas - Open Book', '2020-05-14 04:00:00', '2020-05-14 08:00:00', 'lab', 1, 3, 2),
-(15, 1, 'uts', 'Kelas - Open Book', '2020-05-14 04:00:00', '2020-05-14 05:00:00', 'lab', 1, 2, 22);
+(15, 1, 'uts', 'Kelas - Open Book', '2020-05-14 04:00:00', '2020-05-14 05:00:00', 'lab', 1, 2, 22),
+(16, 4, 'uts', 'Kelas - Open Book', '2020-05-21 02:02:00', '2020-05-21 06:02:00', 'lab', 1, 3, 22),
+(17, 1, 'uas', 'Kelas - Open Book', '2020-05-14 08:00:00', '2020-05-14 11:00:00', 'lab', 2, 3, 33),
+(18, 1, 'uas', 'Praktikum - Thrid Pa', '2020-05-14 04:00:00', '2020-05-14 08:00:00', 'r10317', 2, 3, 22);
 
 -- --------------------------------------------------------
 
@@ -339,16 +342,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `password`, `role`, `pengawas_id`, `token`, `last_login`) VALUES
-('Vosetrick4', 'c00303d026dcf0ed0c2ccbd9e22e48', 'mahasiswa', 0, NULL, NULL),
-('ASDasd123', '037f0b1dd44302fed8eba67c8ae2d5', 'mahasiswa', 0, NULL, NULL),
-('ASDASD123', 'ASDasd123', 'mahasiswa', 0, NULL, NULL),
+('Vosetrick4', 'Qwerty123', 'mahasiswa', 0, NULL, NULL),
+('ASDasd123', 'czxczxzczx12312', 'mahasiswa', 0, NULL, NULL),
+('ASDASD123', 'czxczxzczx12312', 'mahasiswa', 0, NULL, NULL),
 ('admin', 'admin', 'admin', 0, NULL, NULL),
-('Alfaza07', 'Alfaza07', 'mahasiswa', 0, NULL, NULL),
-('ASDASD123', 'ASDAsd123', 'mahasiswa', 0, NULL, NULL),
-('ASDASD123', 'ASDasd123', 'mahasiswa', 0, NULL, NULL),
-('ASDASD123', 'ASDasd123', 'mahasiswa', 0, NULL, NULL),
-('ASDASD123', 'ASDasd123', 'mahasiswa', 0, NULL, NULL),
-('ASDASD123', 'ASDasda123', 'mahasiswa', 0, NULL, NULL);
+('Alfaza07', 'Qwerty123', 'mahasiswa', 0, NULL, NULL),
+('ASDASD123', 'czxczxzczx12312', 'mahasiswa', 0, NULL, NULL),
+('ASDASD123', 'czxczxzczx12312', 'mahasiswa', 0, NULL, NULL),
+('ASDASD123', 'czxczxzczx12312', 'mahasiswa', 0, NULL, NULL),
+('ASDASD123', 'czxczxzczx12312', 'mahasiswa', 0, NULL, NULL),
+('ASDASD123', 'czxczxzczx12312', 'mahasiswa', 0, NULL, NULL),
+('ASDASD123123', 'ASDasd123', 'mahasiswa', 0, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -409,7 +413,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `ujian`
 --
 ALTER TABLE `ujian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
