@@ -119,12 +119,21 @@
                                     header('Location: jadwalUjianAdminUTS');
                                     }
                                 }else{
+                                    if($this->isMuat($ruangan)>0){
                                     echo '<script>var alert = alert("Jumlah melebihi kapasitas!, sisa kuota untuk ruangan ini adalah : '.$this->isMuat($ruangan).'")
                                     console.log(!(alert=="undefined"));    
                                     if(!(alert=="undefined")){
                                             window.location.replace("jadwalUjianAdminUTS");
                                         }
                                     </script>';
+                                    }else{
+                                        echo '<script>var alert = alert("Jumlah melebihi kapasitas!, sisa kuota untuk ruangan ini adalah : 0")
+                                    console.log(!(alert=="undefined"));    
+                                    if(!(alert=="undefined")){
+                                            window.location.replace("jadwalUjianAdminUTS");
+                                        }
+                                    </script>'; 
+                                    }
                                 }
                             }
                             else {
