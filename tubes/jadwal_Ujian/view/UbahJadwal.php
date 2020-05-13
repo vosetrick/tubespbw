@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    $user = $_SESSION['currUsername'];
+    $status = $_SESSION['status'];
+    if($status=="admin"){
+        $status = "Admin";
+    }
+    else{
+        $status = "Mahasiswa";
+    }
+    session_write_close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +25,9 @@
                 </td>
                 <td id="td2">
                     <div onclick="optionsMenu()" class="card" style="float:right; padding-right:2.2vw; box-shadow:none;">
-                        <img id="avatImg" src="img/avatar.png">
                         <div class="container">
-                            <p>Username</p>
+                            <p><?php echo $user?></p>
+                            <p><?php echo $status?></p>
                         </div>
                     </div>
 
@@ -57,30 +69,24 @@
     </div>
         <h2 style="text-align: center">Ubah Jadwal Ujian Informatika</h2>
     <div style="margin-top: 7vh">
+    <form action="tambahUjian" method="POST">
+    <div style="margin-top: 7vh">
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px; ">
             <div style="width: 150px"><label>Mata Kuliah</label></div>
-            <div><input type="text" name="mataKuliah" style="width: 150px"></div>
+            <select style="width: 150px" onchange=cariDosen() name="matakuliah" id="">
+                <?php foreach($resultMK as $key => $valueMK) {?>
+                    <option value="<?php echo $valueMK->getKodeMK(); ?>"> <?php echo $valueMK->getKodeMK()."-". $valueMK->getNamaMK(); } ?> </option>
+            </select>
         </div>
 
         <br>
 
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
-            <div style="width: 150px"><label>Tanggal Ujian</label></div>
-            <div><input type="date" name="tanggalUjian" style="width: 150px"></div>
-        </div>
-
-        <br>
-
-        <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
-            <div style="width: 150px"><label>Peserta Ujian</label></div>
-            <div><input type="number" name="tanggalUjian" style="width: 150px"></div>
-        </div>
-
-        <br>
-
-        <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
-            <div style="width: 150px"><label>Durasi</label></div>
-            <div><input type="text" name="tanggalUjian" style="width: 150px"></div>
+            <div style="width: 75px"><label>Tanggal Ujian</label></div>
+            <div>
+                <input id="tanggal" type="date" name="tanggalUjian" style="width: 125px">
+                <input id="waktu" type="time" name="waktuUjian" style="width: 90px">
+            </div>
         </div>
 
         <br>
@@ -88,18 +94,23 @@
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
             <div style="width: 150px"><label>Ruangan</label></div>
             <div>
-                <select style="width: 150px"  name="Ruangan" id="">
-                    <option  value="10316">10316</option>
-                    <option value="10317">10317</option>
+                <select style="width: 150px"  name="ruangan" id="">
+                    <?php foreach($resultR as $key => $valueR) {?>
+                    <option value="<?php echo $valueR->getKodeRuangan(); ?>"> <?php echo $valueR->getKodeRuangan(); } ?> </option>
                 </select>
             </div>
+        </div>
+        <br>
+        <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
+            <div style="width: 150px"><label>Peserta Ujian</label></div>
+            <div><input type="number" name="peserta" style="width: 150px"></div>
         </div>
 
         <br>
 
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
-            <div style="width: 150px"><label>Kapasitas</label></div>
-            <div><input type="text" name="tanggalUjian" style="width: 150px"></div>
+            <div style="width: 150px"><label>Durasi</label></div>
+            <div><input type="text" name="durasi" style="width: 150px"></div>
         </div>
 
         <br>
@@ -107,9 +118,9 @@
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
             <div style="width: 150px"><label>Tipe</label></div>
             <div>
-                <select style="width: 150px" name="Tipe" id="">
-                    <option value="UTS">UTS</option>
-                    <option value="UAS">UAS</option>
+                <select style="width: 150px" name="tipe" id="">
+                    <option value="uts">UTS</option>
+                    <option value="uas">UAS</option>
                 </select>    
             </div>
         </div>
@@ -119,11 +130,14 @@
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
             <div style="width: 150px"><label>Tata Cara Ujian</label></div>
             <div>
-                <select style="width: 150px" name="TataCara" id="">
-                    <option value="KelasOB">Kelas-Open Book</option>
-                    <option value="KelasCB">Kelas-Close Book</option>
-                    <option value="LabOB">Lab-Open Book</option>
-                    <option value="LabCB">Lab-Close Book</option>
+                <select style="width: 150px" name="tataCara" id="">
+                    <option value="Kelas - Open Book">Kelas - Open Book</option>
+                    <option value="Kelas - Close Book">Kelas - Close Book</option>
+                    <option value="Praktikum - Open File">Praktikum - Open File</option>
+                    <option value="Praktikum - Close File">Praktikum - Close File</option>
+                    <option value="Praktikum - Thrid Party">Praktikum - Thrid Party</option>
+                    <option value="Tidak ada">Tidak ada</option>
+                    <option value="Lainnya">Lainnya</option>
                 </select>    
             </div>
         </div>
@@ -132,22 +146,26 @@
         <div style="display: flex; flex-direction:row; justify-content: center; width:1900px;">
             <div style="width: 150px"><label>Shift</label></div>
             <div>
-                <select style="width: 150px" name="Shift" >
+                <select style="width: 150px" name="shift" >
                     <option value="1">1</option>
                     <option value="2">2</option>
                 </select>
             </div>
         </div>
-        
+
         <br>
 
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
             <div style="width: 150px"><label>Dosen Pengawas</label></div>
             <div>
-                <select style="width: 150px" name="DosenPengawas" id="">
-                    <option value="Elisati">Elisati Hulu, M.T.</option>
-                    <option value="Al">Alfaza Ranggana</option>
+                <select style='width:150px' name='dosen'>
+                <?php 
+                foreach ($resultD as $key => $valueD) { ?>
+                    <option value="<?php echo $valueD->getId(); ?>"> <?php echo $valueD->getId() ; ?> - <?php $arr = []; $arr = $valueD->getMK(); foreach($arr as $keyz => $valuez) { if (count($valuez) > 0){echo $valuez['kode']." , ";} else { echo $valuez['kode']; } };
+                    } ?>
+                </option>
                 </select>
+                
             </div>
         </div>
         
@@ -155,14 +173,16 @@
 
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
             <div style="width: 150px"><label>Kebutuhan Pengawas</label></div>
-                <div><textarea name="" id="" cols="16" rows="5"></textarea></div>
+                <input name="kebutuhan" style="width: 150px" type="number">
         </div>
 
         <br>
 
         <div style="display: flex; flex-direction: row; justify-content: space-around">
-            <input type="submit" value="Ubah Jadwal">
+            <input id="tambahUjian" type="submit" name="tambahUjian" value="Tambah Jadwal">
         </div>
+    </div>
+    </form>
     </div>
 </body>
 

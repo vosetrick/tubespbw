@@ -112,7 +112,7 @@
         <table style="border: 1px solid black; margin-left: 50%; margin: auto; border-collapse: collapse">
 
             <tr>
-                
+                <th id="tableJadwal">No</th>
                 <th id="tableJadwal" >Kode Matakuliah</th>
                 <th id="tableJadwal" >Nama MataKuliah</th>
                 <th id="tableJadwal" >Tanggal Ujian</th>
@@ -121,11 +121,13 @@
                 <!-- <th id="tableJadwal" >Kebutuhan Pengawas</th> -->
                 <th id="tableJadwal" >Dosen Pengawas</th>
                 <th id="tableJadwal">Kapasitas</th>
+                <th id="tableJadwal">Edit Jadwal</th>
                 
             </tr>
             <?php
                 foreach ($result as $key => $value) {
                     echo "<tr>
+                    <td id=\"tableJadwal\" >".$value->getKodeMK()."</td>
                     <td id=\"tableJadwal\" >".$value->getKodeMK()."</td>
                     <td id=\"tableJadwal\" >".$value->getNamaMK()."</td>
                     <td id=\"tableJadwal\" >".$value->getTanggal()."</td>
@@ -133,6 +135,7 @@
                     <td id=\"tableJadwal\" >".$value->getTipe()."</td>
                     <td id=\"tableJadwal\" >".$value->getDosen()."</td>
                     <td id=\"tableJadwal\" >".$value->getKapasitas()."</td>
+                    <td id=\"tableJadwal\" >"."<button onclick=\"window.location.href='ubahJadwal'\">Edit</button>"."</td>
                     </tr>";
                 }
             ?>

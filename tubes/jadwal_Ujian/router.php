@@ -1,6 +1,6 @@
 <?php
 	$url = $_SERVER['REDIRECT_URL'];
-	$baseURL = '/tubespbw/tubes/jadwal_Ujian';
+	$baseURL = '/tubespbw/tubes/jadwal_ujian';
 	
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		switch ($url) {
@@ -10,6 +10,13 @@
                 echo $user->viewLogin();
 				break;
 				
+
+			case $baseURL.'/ubahJadwal':
+				require_once "controller/jadwalController.php";
+				$change = new jadwalController();
+				echo $change->viewChange();
+				break;
+
 			case $baseURL.'/register':
 				require_once "controller/userController.php";
 				$user = new userController();
