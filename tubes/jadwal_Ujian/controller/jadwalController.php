@@ -21,6 +21,17 @@
             ]);
         }
 
+        public function viewChange() {
+            $resultMK = $this->getAllMatakuliah();
+            $resultR = $this->getAllRuangan();
+            $resultD = $this->getAllDosen();
+            return View::createView('tambahJadwal.php', [
+                "resultMK" => $resultMK,
+                "resultR" => $resultR,
+                "resultD" => $resultD
+            ]);
+        }
+
         public function getJadwalTerdekat() {
             $query = "SELECT * FROM (SELECT kode, mid.mulai, mid.selesai, mid.ruang FROM (SELECT mengajar_id, mulai, selesai, ruang FROM ujian)as mid JOIN mengajar on mid.mengajar_id = mengajar.id) as mid2 JOIN matakuliah on mid2.kode LIKE matakuliah.kode ORDER BY mid2.mulai ASC LIMIT 5";
             $query_result = $this->db->executeSelectQuery($query);
