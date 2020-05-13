@@ -35,8 +35,12 @@
 
                     <div id="userOption" onclick="optionsMenu()" style="display: none">
                         <div class="card" style="width: 5.5vw; padding: 10px; background-color: white">
-                            <input id="userOptionButtonEdit" class="card" type="button" value="Edit"> <br>
-                            <input id="userOptionButtonLogout" class="card" type="button" value="Logout">
+                        <form action="editProfile" method="POST">
+                            <input id="userOptionButtonEdit" class="card" type="submit" value="Edit"> <br>
+                        </form>   
+                        <form action="login" method="GET">
+                        <input id="userOptionButtonLogout" class="card" type="submit" value="Logout">
+                        </form>
                         </div>
                     </div>
 

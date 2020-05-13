@@ -22,11 +22,13 @@
         }
 
         public function viewChange() {
-            $resultMK = $this->getAllMatakuliah();
+            session_start();
+            $kodeMK = $_SESSION['kodeMK'];
+            $namaMK = $_SESSION['namaMK'];
+            session_write_close();
             $resultR = $this->getAllRuangan();
             $resultD = $this->getAllDosen();
-            return View::createView('tambahJadwal.php', [
-                "resultMK" => $resultMK,
+            return View::createView('ubahJadwal.php', [
                 "resultR" => $resultR,
                 "resultD" => $resultD
             ]);
@@ -133,6 +135,57 @@
                             }
         }
 
+        public function editJadwal() {
+            session_start();
+            $matakuliah = $_SESSION['kodeMK'];
+            $date = $_POST['tanggalUjian'];
+            $time = $_POST['waktuUjian'];
+            $datetime = $date.' '.$time;
+            $datetime = date("Y-m-d H:i:s", strtotime($datetime));
+            $ruangan = $_POST['ruangan'];
+            $peserta = $_POST['peserta'];
+            $durasi = $_POST['durasi'];
+            $date = date_create($datetime); 
+            date_add($date, date_interval_create_from_date_string($durasi." hours")); 
+            $selesai = date_format($date, "Y-m-d H:i:s"); 
+            $tipe = $_POST['tipe'];
+            $tataCara = $_POST['tataCara'];
+            $shift = $_POST['shift'];
+            $dosen = $_POST['dosen'];
+            $kebutuhan = $_POST['kebutuhan'];
+            if (isset($ruangan)
+                && isset($peserta) && isset($durasi) && isset($tipe)
+                    && isset($tataCara) && isset($shift) && isset($dosen) 
+                        && isset ($kebutuhan)
+                && $ruangan != ""
+                    && $peserta != "" && $durasi != "" && $tipe != ""
+                        && $tataCara != "" && $shift != "" && $dosen != ""
+                             && $kebutuhan != "") {
+                                
+                                $queryTemp = "SELECT id FROM mengajar WHERE kode LIKE '$matakuliah' AND dosen_id = '$dosen'";
+                                $mengajar = $this->db->executeSelectQuery($queryTemp);
+                                foreach ($mengajar as $key => $value) {
+                                    $id = $value['id'];
+                                    $idUjian = $_SESSION['idUjian'];
+                                    
+                                    $query = "UPDATE ujian 
+                                    SET mengajar_id = '$id',
+                                     tipe = '$tipe',
+                                      tata_cara = '$tataCara',
+                                       mulai = '$datetime',
+                                        selesai = '$selesai',
+                                         ruang = '$ruangan',
+                                          shift = '$shift',
+                                           kebutuhan_pengawas = '$kebutuhan',
+                                            jumlahPeserta = '$peserta'
+                                     WHERE id =  '$idUjian'";
+                                    $this->db->executeNonSelectQuery($query);
+                                    header('Location: jadwalUjianAdminUTS');
+                                }
+                            }
+                            session_write_close();
+        }
+
         public function getJadwalUTS(){
             $query = "SELECT * FROM ujian WHERE tipe LIKE 'uts'";
             $query_result = $this->db->executeSelectQuery($query);
@@ -141,7 +194,7 @@
             foreach ($query_result as $key => $value) {
                 $mk = $this->getMK($value['mengajar_id']);
                 foreach ($mk as $keyz => $valuez) {
-                    $result[] = new Jadwal($valuez['kode'],$valuez['nama'],$value['mulai'],$value['ruang'],$value['tipe'],$valuez['dosen_id'],$value['jumlahPeserta'],$value['shift']);
+                    $result[] = new Jadwal($value['id'],$valuez['kode'],$valuez['nama'],$value['mulai'],$value['ruang'],$value['tata_cara'],$valuez['dosen_id'],$value['jumlahPeserta'],$value['shift']);
                 }
             }
             return $result;
@@ -154,8 +207,9 @@
             foreach ($query_result as $key => $value) {
                 $mk = $this->getMK($value['mengajar_id']);
                 foreach ($mk as $keyz => $valuez) {
-                    $result[] = new Jadwal($valuez['kode'],$valuez['nama'],$value['mulai'],$value['ruang'],$value['tipe'],$valuez['dosen_id'],$value['jumlahPeserta'],$value['shift']);
-                }            }
+                    $result[] = new Jadwal($value['id'],$valuez['kode'],$valuez['nama'],$value['mulai'],$value['ruang'],$value['tata_cara'],$valuez['dosen_id'],$value['jumlahPeserta'],$value['shift']);
+                }            
+            }
             return $result;
         }
         
@@ -177,6 +231,23 @@
             }
             return $result;
         }
+
+        public function ambilJadwal() {
+            $idUjian = $_GET['id'];
+            $kodeMK = $_GET['kode'];
+            $namaMK = $_GET['nama'];
+            session_start();
+            $_SESSION['idUjian'] = $idUjian;
+            $_SESSION['kodeMK'] = $kodeMK;
+            $_SESSION['namaMK'] = $namaMK;
+            session_write_close();
+        }
+
+        // public function getChosenUjian() {
+        //     session_start();
+        //     $id = $_SESSION['matakuliah'];
+        //     $query = "UPDATE"
+        // }
 
         public function getAllDosen(){
             $query = "SELECT DISTINCT(dosen_id) FROM mengajar";

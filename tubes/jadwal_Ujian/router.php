@@ -10,13 +10,6 @@
                 echo $user->viewLogin();
 				break;
 				
-
-			case $baseURL.'/ubahJadwal':
-				require_once "controller/jadwalController.php";
-				$change = new jadwalController();
-				echo $change->viewChange();
-				break;
-
 			case $baseURL.'/register':
 				require_once "controller/userController.php";
 				$user = new userController();
@@ -71,6 +64,13 @@
 				echo $jadwalUjian->viewJadwalUjianAdminUAS();
 				break;
 			
+			case $baseURL.'/ubahJadwal':
+				require_once "controller/jadwalController.php";
+				$change = new jadwalController();
+				$change->ambilJadwal();
+				echo $change->viewChange();
+				break;
+			
 			default:
 				echo '404 Not Found';
 				break;
@@ -113,6 +113,13 @@
 				$tambah->insertJadwal();
 				break;
 
+
+			case $baseURL.'/editUjian':
+				require_once "controller/jadwalController.php";
+				$change = new jadwalController();
+				$change->editJadwal();
+				break;
+			
 			default:
 				echo '404 Not Found';
 				break;

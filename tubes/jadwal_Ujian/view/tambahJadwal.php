@@ -34,9 +34,12 @@
 
                     <div id="userOption" onclick="optionsMenu()" style="display: none">
                         <div class="card" style="width: 5.5vw; padding: 10px; background-color: white">
-                            <input id="userOptionButtonEdit" class="card" type="button" value="Edit"> <br>
-                            <input id="userOptionButtonLogout" class="card" type="button" value="Logout">
-                        </div>
+                        <form action="editProfile" method="POST">
+                            <input id="userOptionButtonEdit" class="card" type="submit" value="Edit"> <br>
+                        </form>   
+                        <form action="login" method="GET">
+                        <input id="userOptionButtonLogout" class="card" type="submit" value="Logout">
+                        </form>                        </div>
                     </div>
 
                     <!-- Modal Logout -->
@@ -69,10 +72,10 @@
                 session_start();
                 $status = $_SESSION['status'];
                 if($status=="admin"){
-                    echo "<a id=linkHeader href=jadwalUjianAdmin>Lihat Jadwal</a>";
+                    echo "<a id=linkHeader href=jadwalUjianAdminUTS>Lihat Jadwal</a>";
                 }
                 else{
-                    echo "<a id=linkHeader href=jadwalUjianUser>Lihat Jadwal</a>";
+                    echo "<a id=linkHeader href=jadwalUjianUserUTS>Lihat Jadwal</a>";
                 }
                 session_write_close();
                 ?>

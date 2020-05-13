@@ -1,5 +1,6 @@
 <?php
     class Jadwal {
+        protected $id;
         protected $kodeMatakuliah;
         protected $namaMatakuliah;
         protected $tanggalUjian;
@@ -8,7 +9,8 @@
         protected $dosenPengawas;
         protected $shift;
 
-        public function __construct($kode, $nama, $tanggal, $ruangan, $tipe, $dosen, $kapasitas,$shift) {
+        public function __construct($id,$kode, $nama, $tanggal, $ruangan, $tipe, $dosen, $kapasitas,$shift) {
+            $this->id = $id;
             $this->kodeMatakuliah = $kode;
             $this->namaMatakuliah = $nama;
             $this->tanggalUjian = $tanggal;
@@ -17,6 +19,10 @@
             $this->dosenPengawas = $dosen;
             $this->kapasitas = $kapasitas;
             $this->shift = $shift;
+        }
+
+        public function getId() {
+            return $this->id;
         }
 
         public function getKodeMK() {

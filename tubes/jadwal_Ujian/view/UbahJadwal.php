@@ -33,9 +33,12 @@
 
                     <div id="userOption" onclick="optionsMenu()" style="display: none">
                         <div class="card" style="width: 5.5vw; padding: 10px; background-color: white">
-                            <input id="userOptionButtonEdit" class="card" type="button" value="Edit"> <br>
-                            <input id="userOptionButtonLogout" class="card" type="button" value="Logout">
-                        </div>
+                        <form action="editProfile" method="POST">
+                            <input id="userOptionButtonEdit" class="card" type="submit" value="Edit"> <br>
+                        </form>   
+                        <form action="login" method="GET">
+                        <input id="userOptionButtonLogout" class="card" type="submit" value="Logout">
+                        </form>                        </div>
                     </div>
                     <!-- Modal Logout -->
                     <div class="modal" id="modalLogout">
@@ -63,20 +66,25 @@
                 </td>
             </tr>
             <tr>
-                <td id="td1"><a id="linkHeader" href="index.php">Home</a> <span>></span><a id="linkHeader" href="JadwalUjian.php">Lihat Jadwal</a> <span>></span><a id="linkHeader" href="">Tambah Jadwal</a></td>
+                <td id="td1"><a id="linkHeader" href="index.php">Home</a> <span>></span><a id="linkHeader" href="jadwalUjianAdminUTS">Lihat Jadwal</a> <span>></span><a id="linkHeader" href="">Tambah Jadwal</a></td>
             </tr>
         </table>
     </div>
         <h2 style="text-align: center">Ubah Jadwal Ujian Informatika</h2>
     <div style="margin-top: 7vh">
-    <form action="tambahUjian" method="POST">
+    <form action="editUjian" method="POST">
     <div style="margin-top: 7vh">
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px; ">
             <div style="width: 150px"><label>Mata Kuliah</label></div>
-            <select style="width: 150px" onchange=cariDosen() name="matakuliah" id="">
-                <?php foreach($resultMK as $key => $valueMK) {?>
-                    <option value="<?php echo $valueMK->getKodeMK(); ?>"> <?php echo $valueMK->getKodeMK()."-". $valueMK->getNamaMK(); } ?> </option>
-            </select>
+            <span name="matakuliah" id="">
+                <?php
+                session_start();
+                $kodeMK = $_SESSION['kodeMK'];
+                $namaMK = $_SESSION['namaMK'];
+                echo $kodeMK." - ".$namaMK;
+                session_write_close();
+                ?>
+            </span>
         </div>
 
         <br>
@@ -179,7 +187,7 @@
         <br>
 
         <div style="display: flex; flex-direction: row; justify-content: space-around">
-            <input id="tambahUjian" type="submit" name="tambahUjian" value="Tambah Jadwal">
+            <input id="tambahUjian" type="submit" name="tambahUjian" value="Ubah Jadwal">
         </div>
     </div>
     </form>

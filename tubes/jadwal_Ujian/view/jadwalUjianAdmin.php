@@ -37,8 +37,10 @@
                         <div class="card" style="width: 5.5vw; padding: 10px; background-color: white">
                         <form action="editProfile" method="POST">
                             <input id="userOptionButtonEdit" class="card" type="submit" value="Edit"> <br>
+                        </form>   
+                        <form action="login" method="GET">
+                        <input id="userOptionButtonLogout" class="card" type="submit" value="Logout">
                         </form>
-                            <input id="userOptionButtonLogout" class="card" type="button" value="Logout">
                         </div>
                     </div>
                     <!-- Modal Logout -->
@@ -127,7 +129,7 @@
             <?php
                 foreach ($result as $key => $value) {
                     echo "<tr>
-                    <td id=\"tableJadwal\" >".$value->getKodeMK()."</td>
+                    <td id=\"tableJadwal\" >".($value->getId()-9)."</td>
                     <td id=\"tableJadwal\" >".$value->getKodeMK()."</td>
                     <td id=\"tableJadwal\" >".$value->getNamaMK()."</td>
                     <td id=\"tableJadwal\" >".$value->getTanggal()."</td>
@@ -135,8 +137,13 @@
                     <td id=\"tableJadwal\" >".$value->getTipe()."</td>
                     <td id=\"tableJadwal\" >".$value->getDosen()."</td>
                     <td id=\"tableJadwal\" >".$value->getKapasitas()."</td>
-                    <td id=\"tableJadwal\" >"."<button onclick=\"window.location.href='ubahJadwal'\">Edit</button>"."</td>
-                    </tr>";
+                    <td id=\"tableJadwal\" >"."
+                    <form action=\"ubahJadwal\" method=\"GET\">
+                    <input type=\"submit\"value=\"EDIT\">
+                    <input type=\"hidden\" name=\"id\" value=".$value->getId()."></input>
+                    <input type=\"hidden\" name=\"kode\" value='".$value->getKodeMK()."'></input>
+                    <input type=\"hidden\" name=\"nama\" value='".$value->getNamaMK()."'></input>
+                    </form></td></tr>";
                 }
             ?>
         </table>

@@ -37,7 +37,9 @@
                         <form action="editProfile" method="POST">
                             <input id="userOptionButtonEdit" class="card" type="submit" value="Edit"> <br>
                         </form>   
-                        <input id="userOptionButtonLogout" class="card" type="button" value="Logout">
+                        <form action="login" method="GET">
+                        <input id="userOptionButtonLogout" class="card" type="submit" value="Logout">
+                        </form>
                         </div>
                     </div>
                     <!-- Modal Logout -->
