@@ -66,7 +66,7 @@
                 </td>
             </tr>
             <tr>
-                <td id="td1"><a id="linkHeader" href="index.php">Home</a> <span>></span><a id="linkHeader" href="jadwalUjianAdminUTS">Lihat Jadwal</a> <span>></span><a id="linkHeader" href="">Tambah Jadwal</a></td>
+                <td id="td1"><a id="linkHeader" href="index.php">Home</a> <span>></span><a id="linkHeader" href="jadwalUjianAdminUTS?semester=2">Lihat Jadwal</a> <span>></span><a id="linkHeader" href="">Ubah Jadwal</a></td>
             </tr>
         </table>
     </div>

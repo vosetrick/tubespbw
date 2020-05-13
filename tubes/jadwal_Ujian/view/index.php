@@ -113,11 +113,12 @@
                                 <?php
                                     session_start();
                                     $status = $_SESSION['status'];
+                                    $semester = $_SESSION['semester'];
                                     if($status=="admin"){
-                                        echo "<button onclick=\"window.location.href='jadwalUjianAdminUTS'\">";
+                                        echo "<button onclick=\"window.location.href='jadwalUjianAdminUTS?semester=".$semester."'\">";
                                     }
                                     else{
-                                        echo "<button onclick=\"window.location.href='jadwalUjianUserUTS'\">";
+                                        echo "<button onclick=\"window.location.href='jadwalUjianUserUTS?semester=".$semester."'\">";
                                     }
                                     session_write_close();
                                 ?>

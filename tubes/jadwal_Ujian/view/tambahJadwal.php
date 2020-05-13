@@ -71,11 +71,12 @@
                 <?php
                 session_start();
                 $status = $_SESSION['status'];
+                $semester = $_SESSION['semester'];
                 if($status=="admin"){
-                    echo "<a id=linkHeader href=jadwalUjianAdminUTS>Lihat Jadwal</a>";
+                    echo "<a id=linkHeader href=jadwalUjianAdminUTS?semester=".$semester.">Lihat Jadwal</a>";
                 }
                 else{
-                    echo "<a id=linkHeader href=jadwalUjianUserUTS>Lihat Jadwal</a>";
+                    echo "<a id=linkHeader href=jadwalUjianUserUTS?semester=".$semester.">Lihat Jadwal</a>";
                 }
                 session_write_close();
                 ?>
@@ -93,7 +94,7 @@
                     <option value="<?php echo $valueMK->getKodeMK(); ?>"> <?php echo $valueMK->getKodeMK()."-". $valueMK->getNamaMK(); } ?> </option>
             </select>
         </div>
-
+ 
         <br>
 
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">

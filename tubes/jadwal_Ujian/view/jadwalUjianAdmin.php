@@ -75,33 +75,51 @@
     <!-- ------------------------------------------------------ -->
     <div style="margin: 5px">
         <h1 style=" display: inline-block; margin-left: 40.5%">Jadwal Ujian Informatika</h1>
-        <select name="Semester" id="" style="display: inline-block; float: right; margin:3vh">
-            <option value="Semester 1">Semester 1</option>
-            <option value="Semester 2">Semester 2</option>
-        </select>
+        <form id="formSemester" method="GET">
+            <select name="semester" onchange=submit() id="" style="display: inline-block; float: right; margin:3vh">
+                <?php
+                    session_start();
+                    $semester = $_SESSION['semester'];
+                    if ($semester == 1) {
+                        echo '
+                        <option value="1" selected>Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        ';
+                    } else {
+                        echo '
+                        <option value="1">Semester 1</option>
+                        <option value="2" selected>Semester 2</option>
+                        ';
+                    }
+                    session_write_close();
+                ?>
+            </select>
+        </form>
     </div>
     <br>
     <div style="margin-left: 47.2%;">
-        <h2 style="display: inline-block"><a id="" href="<?php
+        <h2 style="display: inline-block"><a id="tombolUts" href="<?php
                 session_start();
                 $status = $_SESSION['status'];
+                $semester = $_SESSION['semester'];
                 if($status=="admin"){
-                    echo "jadwalUjianAdminUTS";
+                    echo "jadwalUjianAdminUTS?semester=".$semester;
                 }
                 else{
-                    echo "jadwalUjianUserUTS";
+                    echo "jadwalUjianUserUTS?semester=".$semester;
                 }
                 session_write_close();
                 ?>">UTS</a>
         </h2> <h2 style="display: inline-block">|</h2> 
-        <h2 style="display: inline-block"><a id="" href="<?php
+        <h2 style="display: inline-block"><a id="tombolUas" href="<?php
                 session_start();
                 $status = $_SESSION['status'];
+                $semester = $_SESSION['semester'];
                 if($status=="admin"){
-                    echo "jadwalUjianAdminUAS";
+                    echo "jadwalUjianAdminUAS?semester=".$semester;
                 }
                 else{
-                    echo "jadwalUjianUserUAS";
+                    echo "jadwalUjianUserUAS?semester=".$semester;
                 }
                 session_write_close();
                 ?>">UAS</a></h2>
@@ -124,6 +142,7 @@
                 <th id="tableJadwal" >Dosen Pengawas</th>
                 <th id="tableJadwal">Kapasitas</th>
                 <th id="tableJadwal">Edit Jadwal</th>
+                <th id="tableJadwal">Hapus Jadwal</th>
                 
             </tr>
             <?php
@@ -143,6 +162,12 @@
                     <input type=\"hidden\" name=\"id\" value=".$value->getId()."></input>
                     <input type=\"hidden\" name=\"kode\" value='".$value->getKodeMK()."'></input>
                     <input type=\"hidden\" name=\"nama\" value='".$value->getNamaMK()."'></input>
+                    </form></td>
+                    <td id=\"tableJadwal\"><form action=\"hapusJadwal\" method=\"GET\">
+                    <input type=\"submit\"value=\"HAPUS\">
+                    <input type=\"hidden\" name=\"id\" value=".$value->getId()."></input>
+                    <input type=\"hidden\" name=\"kode\" value='".$value->getKodeMK()."'></input>
+                    <input type=\"hidden\" name=\"nama\" value='".$value->getNamaMK()."'></input>
                     </form></td></tr>";
                 }
             ?>
@@ -152,6 +177,11 @@
 <script>
     var buttonUser = false; //button untuk optionsMenu
 
+    
+
+    function submit(){
+       document.getElementById("formSemester").submit();      
+    }
 
     // Hide show tombol logout dan edit di user 
     function optionsMenu() {

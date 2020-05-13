@@ -116,21 +116,21 @@
                                     $query = "INSERT INTO ujian (mengajar_id, tipe, tata_cara, mulai, selesai, ruang, shift, kebutuhan_pengawas, jumlahPeserta)
                                      VALUES ('$id', '$tipe', '$tataCara', '$datetime', '$selesai', '$ruangan', '$shift', '$kebutuhan', '$peserta')";
                                     $query_result = $this->db->executeNonSelectQuery($query);
-                                    header('Location: jadwalUjianAdminUTS');
+                                    header('Location: jadwalUjianAdminUTS?semester=2');
                                     }
                                 }else{
                                     if($this->isMuat($ruangan)>0){
                                     echo '<script>var alert = alert("Jumlah melebihi kapasitas!, sisa kuota untuk ruangan ini adalah : '.$this->isMuat($ruangan).'")
                                     console.log(!(alert=="undefined"));    
                                     if(!(alert=="undefined")){
-                                            window.location.replace("jadwalUjianAdminUTS");
+                                            window.location.replace("jadwalUjianAdminUTS?semester=2");
                                         }
                                     </script>';
                                     }else{
                                         echo '<script>var alert = alert("Jumlah melebihi kapasitas!, sisa kuota untuk ruangan ini adalah : 0")
                                     console.log(!(alert=="undefined"));    
                                     if(!(alert=="undefined")){
-                                            window.location.replace("jadwalUjianAdminUTS");
+                                            window.location.replace("jadwalUjianAdminUTS?semester=2");
                                         }
                                     </script>'; 
                                     }
@@ -142,6 +142,15 @@
                                 alert('$message');
                                 </script>";
                             }
+        }
+
+        public function hapusJadwal() {
+            session_start();
+            $ujian = $_SESSION['idUjian'];
+            $query = "DELETE FROM ujian WHERE id = $ujian";
+            $this->db->executeNonSelectQuery($query);
+            session_write_close();
+            header("Location: jadwalUjianAdminUTS?semester=2");
         }
 
         public function editJadwal() {
@@ -189,7 +198,7 @@
                                             jumlahPeserta = '$peserta'
                                      WHERE id =  '$idUjian'";
                                     $this->db->executeNonSelectQuery($query);
-                                    header('Location: jadwalUjianAdminUTS');
+                                    header('Location: jadwalUjianAdminUTS?semester=2');
                                 }
                             }
                             session_write_close();
@@ -213,6 +222,7 @@
             $query = "SELECT * FROM ujian WHERE tipe LIKE 'uas'";
             $query_result = $this->db->executeSelectQuery($query);
             $result = [];
+            $mk = [];
             foreach ($query_result as $key => $value) {
                 $mk = $this->getMK($value['mengajar_id']);
                 foreach ($mk as $keyz => $valuez) {
@@ -222,10 +232,20 @@
             return $result;
         }
         
+        public function setSemester() {
+            session_start();
+            $semester = $_GET['semester'];
+            $_SESSION['semester'] = $semester;
+            session_write_close();
+        }
+
         public function getMK($id) {
-            $query = "SELECT matakuliah.kode, matakuliah.nama, md.dosen_id FROM (SELECT kode, dosen_id FROM mengajar WHERE id = $id) as md JOIN matakuliah on md.kode LIKE matakuliah.kode";
+            session_start();
+            $semester = $_SESSION['semester'];
+            $query = "SELECT matakuliah.kode, matakuliah.nama, md.dosen_id FROM (SELECT kode, dosen_id FROM mengajar WHERE id = $id AND semester_id = $semester) as md JOIN matakuliah on md.kode LIKE matakuliah.kode";
             $result = [];
             $result = $this->db->executeSelectQuery($query);
+            session_write_close();
             return $result;
         }
 

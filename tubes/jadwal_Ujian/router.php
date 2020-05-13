@@ -29,38 +29,30 @@
 			// break;
 
 			case $baseURL.'/jadwalUjianUserUTS':
-				// session_start();
-				// $_SESSION['tipe'] = 'uts';
-				// session_write_close();
 				require_once "controller/jadwalController.php";
 				$jadwalUjian = new jadwalController();
+				$jadwalUjian->setSemester();
 				echo $jadwalUjian->viewJadwalUjianUserUTS();
 				break;
 
 			case $baseURL.'/jadwalUjianAdminUTS':
-				// session_start();
-				// $_SESSION['tipe'] = 'uts';
-				// session_write_close();
 				require_once "controller/jadwalController.php";
 				$jadwalUjian = new jadwalController();
+				$jadwalUjian->setSemester();
 				echo $jadwalUjian->viewJadwalUjianAdminUTS();
 				break;
 
 			case $baseURL.'/jadwalUjianUserUAS':
-				// session_start();
-				// $_SESSION['tipe'] = 'uts';
-				// session_write_close();
 				require_once "controller/jadwalController.php";
 				$jadwalUjian = new jadwalController();
+				$jadwalUjian->setSemester();
 				echo $jadwalUjian->viewJadwalUjianUserUAS();
 				break;
 	
 			case $baseURL.'/jadwalUjianAdminUAS':
-				// session_start();
-				// $_SESSION['tipe'] = 'uts';
-				// session_write_close();
 				require_once "controller/jadwalController.php";
 				$jadwalUjian = new jadwalController();
+				$jadwalUjian->setSemester();
 				echo $jadwalUjian->viewJadwalUjianAdminUAS();
 				break;
 			
@@ -69,6 +61,13 @@
 				$change = new jadwalController();
 				$change->ambilJadwal();
 				echo $change->viewChange();
+				break;
+
+			case $baseURL.'/hapusJadwal':
+				require_once "controller/jadwalController.php";
+				$change = new jadwalController();
+				$change->ambilJadwal();
+				$change->hapusJadwal();
 				break;
 			
 			default:
