@@ -1,0 +1,122 @@
+.atasan{
+    border-bottom: 4px solid black;
+}
+
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    border-radius: 5px;
+    
+}
+
+.container {
+ 
+    margin-left: 1.5vw;
+}
+
+.modal{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    right:0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+
+}
+
+.modal-content{
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+#tulisanJadwal{
+    text-align: center;
+}
+
+#cardUjian{
+    text-align: center;
+    margin-left:50%;
+    margin: auto;
+    width: 25vw;
+    height: 6vh;
+    border: 1px solid black;
+    
+}
+
+#userOption{
+    width: 4vw;
+    height:8vh;
+    position: fixed;
+    right: 4.5vw;
+    top: 11vh;
+}
+
+#userOptionButtonLogout{
+    padding: 5px;
+    width: 5vw;
+    margin: 3px;
+}
+
+#userOptionButtonEdit{
+    padding: 5px;
+    width: 5vw;
+    margin: 3px;
+}
+
+#linkHeader{
+    text-decoration: none;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+
+#avatImg{
+    float: right;
+    width: 50px;
+    height: 50px;
+    margin-right: 2.3vw;
+    margin-bottom: 1vh;
+
+}
+
+#rightNav{
+    float: right;
+    height: 100%;
+    border-left: 4px solid black;
+    width: 25%;
+}
+
+#tableJadwal{
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+
+}
+
+#td1{
+    width: 20%;
+}
+#td2{
+    width: 20%;
+}
+#td3{
+    width: 1%;
+}
+#tdTengah{
+    width: 60%;
+}
+
+#tr1{
+    height: 15vh;
+}
+
+#tr2{
+    height: 30vh;
+    width: 40vw;
+     
+}
