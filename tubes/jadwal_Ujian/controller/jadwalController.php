@@ -95,7 +95,7 @@
                     && $peserta != "" && $durasi != "" && $tipe != ""
                         && $tataCara != "" && $shift != "" && $dosen != ""
                              && $kebutuhan != "") {
-                                
+                                if($this->isMuat($ruangan)>=$peserta){
                                 $queryTemp = "SELECT id FROM mengajar WHERE kode LIKE '$matakuliah' AND dosen_id = '$dosen'";
                                 $mengajar = $this->db->executeSelectQuery($queryTemp);
                                 foreach ($mengajar as $key => $value) {
@@ -104,6 +104,14 @@
                                      VALUES ('$id', '$tipe', '$tataCara', '$datetime', '$selesai', '$ruangan', '$shift', '$kebutuhan', '$peserta')";
                                     $query_result = $this->db->executeNonSelectQuery($query);
                                     header('Location: jadwalUjianAdminUTS');
+                                    }
+                                }else{
+                                    echo '<script>var alert = alert("Jumlah melebihi kapasitas!, sisa kuota untuk ruangan ini adalah : '.$this->isMuat($ruangan).'")
+                                    console.log(!(alert=="undefined"));    
+                                    if(!(alert=="undefined")){
+                                            window.location.replace("jadwalUjianAdminUTS");
+                                        }
+                                    </script>';
                                 }
                             }
                             else {
@@ -198,5 +206,11 @@
             }
             return $result;
         }
+
+        public function isMuat($kodeRuangan){
+            $query = "SELECT SUM(jumlahPeserta) as 'jumlah', ruang.kapasitas FROM ujian join ruang on ujian.ruang = ruang.kode WHERE ujian.ruang='$kodeRuangan'";
+            $query_result = $this->db->executeSelectQuery($query);
+            $hasil=$query_result[0]['kapasitas']-$query_result[0]['jumlah'];
+            return $hasil;
+        }
     }
-?>
