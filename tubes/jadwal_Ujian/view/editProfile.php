@@ -15,6 +15,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="view/css/style.css">
+    <script src="view/js/ajaxEditPassword.js"defer></script>
 </head>
 <body>
     <div class="atasan">
@@ -27,7 +28,7 @@
                 <td id="td2">
                     <div onclick="optionsMenu()" class="card" style="float:right; padding-right:2.2vw; box-shadow:none;">
                         <div class="container">
-                            <p><?php echo $user?></p>
+                            <p id="username"><?php echo $user?></p>
                             <p><?php echo $status?></p>
                         </div>
                     </div>
@@ -87,9 +88,9 @@
 
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">
             <div style="width: 150px"><label>Old Password</label></div>
-            <div><input type="password" name="oldPass" style="width: 150px"></div>
+            <div><input id="oldPas" type="password" name="oldPass" style="width: 150px"></div>
+            <span id="auth"></span>
         </div>
-
         <br>
 
         <div style="display: flex; flex-direction: row; justify-content: center; width:1900px;">

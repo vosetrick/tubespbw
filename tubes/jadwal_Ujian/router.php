@@ -1,7 +1,7 @@
 <?php
 	$url = $_SERVER['REDIRECT_URL'];
-	$baseURL = '/tubes/jadwal_Ujian';
-
+	$baseURL = '/pbw_alfaza/tubespbw/tubes/jadwal_Ujian';
+	
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		switch ($url) {
 			case $baseURL.'/login':

@@ -5,7 +5,7 @@
 
     $user = $_GET['usr'];
     $query = "SELECT * FROM user WHERE username = '$user'";
-    print_r($query);
+    #print_r($query);
     $res = $db->executeSelectQuery($query);
     if(count($res)>0){
         echo "Username tidak bisa digunakan";
